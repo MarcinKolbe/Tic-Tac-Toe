@@ -4,30 +4,18 @@ import java.util.Scanner;
 
 public class User {
     private String userName;
-    private int symbol;
+    private int playerNumber; // 1 for Player 1, 2 for Player 2
+
+    public User(String userName, int playerNumber) {
+        this.userName = userName;
+        this.playerNumber = playerNumber;
+    }
 
     public String getUserName() {
         return userName;
     }
-    public String getUserNameFromUserInput() {
-        Scanner sc = new Scanner(System.in);
-        while (!sc.hasNextLine()) {
-            System.out.println("Invalid input. Please enter a valid name.");
-            sc.next();
-        }
-        userName = sc.nextLine();
-        return userName;
-    }
-    public int getSymbol() {
-        return symbol;
-    }
-    public int getSymbolFromUserInput() {
-        Scanner sc = new Scanner(System.in);
-        while (!sc.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a valid number between 1 and 9.");
-            sc.next();
-        }
-        symbol = sc.nextInt();
-        return symbol;
+
+    public int getPlayerNumber() {
+        return playerNumber;
     }
 }

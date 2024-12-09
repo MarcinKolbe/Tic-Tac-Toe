@@ -4,8 +4,12 @@ public class TicTacToeApplication {
 
     public static void main(String[] args) {
 
-        UserInterface ui = new UserInterface();
-        ui.startGame(new GameEngine());
+        UI ui = new ConsoleUI(); // Możliwość łatwej zmiany na inne UI (np. new GUI())
+        User player1 = ui.getUserInput(1);
+        User player2 = ui.getUserInput(2);
+
+        GameEngine gameEngine = new GameEngine(player1, player2, ui);
+        gameEngine.startGame();
 
     }
 

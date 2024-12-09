@@ -1,59 +1,53 @@
 package com.tictactoe;
 
 public class GameEngine {
-    GameBoard gameBoard = new GameBoard();
+    private GameBoard gameBoard = new GameBoard();
+    private User player1;
+    private User player2;
     private boolean end = false;
-    User player1 = new User();
-    User player2 = new User();
+    private UI ui;
 
-    public void game() {
-        int symbol;
-        UserInterface ui = new UserInterface();
+    public GameEngine(User player1, User player2, UI ui) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.ui = ui;
+    }
+
+    public void startGame() {
         gameBoard.resetBoard();
-        ui.player1Name();
-        player1.getUserNameFromUserInput();
-        ui.player2Name();
-        player2.getUserNameFromUserInput();
-        gameBoard.fieldNumbers();
+        ui.displayMessage("Game starting! " + player1.getUserName() + " vs " + player2.getUserName());
         while (!end) {
-            ui.fieldNumber();
-            while (true) {
-                symbol = player1.getSymbolFromUserInput();
-                if (gameBoard.isCellAvailable(symbol)) {
-                    gameBoard.addSymbol(symbol, 1);
-                    break;
-                }
-                ui.fieldTaken();
-            }
+            gameBoard.fieldNumbers();
+            playTurn(player1);
+            if (checkGameEnd()) break;
+            playTurn(player2);
+            if (checkGameEnd()) break;
+        }
+    }
+
+    private void playTurn(User player) {
+        ui.displayMessage("It's " + player.getUserName() + "'s turn!");
+        int position = ui.getSymbolFromUser();
+        if (gameBoard.isCellAvailable(position)) {
+            gameBoard.addSymbol(position, player.getPlayerNumber());
             gameBoard.printBoard();
-                if (gameBoard.checkWinner() != 0) {
-                    end = true;
-                    ui.playerWins(player1);
-                    ui.endGame(player1, player2);
-                    return;
-                }
-            ui.fieldNumber();
-            while (true) {
-                symbol = player1.getSymbolFromUserInput();
-                if (gameBoard.isCellAvailable(symbol)) {
-                    gameBoard.addSymbol(symbol, 2);
-                    break;
-                }
-                ui.fieldTaken();
-            }
-            gameBoard.printBoard();
-            if (gameBoard.checkWinner() != 0) {
-                end = true;
-                ui.playerWins(player2);
-                ui.endGame(player1, player2);
-                return;
-            }
+        } else {
+            ui.displayMessage("This cell is already taken. Please choose another one.");
+            playTurn(player);
+        }
+    }
+
+    private boolean checkGameEnd() {
+        int winner = gameBoard.checkWinner();
+        if (winner != 0 || !gameBoard.checkIfBoardFull()) {
+            end = true;
             if (!gameBoard.checkIfBoardFull()) {
-                end = true;
-                ui.itIsADraw();
-                ui.endGame(player1, player2);
-                return;
+                ui.displayMessage("It's a draw!");
+            } else {
+                String winnerName = (winner == 1) ? player1.getUserName() : player2.getUserName();
+                ui.displayMessage(winnerName + " wins!");
             }
-        } end = false;
+        }
+        return end;
     }
 }
