@@ -1,5 +1,6 @@
 package com.tictactoe;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleUI implements UI {
@@ -33,8 +34,21 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public void displayBoard(GameBoard board) {
-        board.printBoard();
+    public void displayBoard(GameBoard gameBoard) {
+        List<Integer> board = gameBoard.getBoard();
+        for (int i = 0; i < 9; i++) {
+            System.out.print(" | ");
+            if (board.get(i) == 1) {
+                System.out.print("O");
+            } else if (board.get(i) == 2) {
+                System.out.print("X");
+            } else {
+                System.out.print(" ");
+            }
+            if (i == 2 || i == 5 || i == 8) {
+                System.out.println(" |");
+            }
+        }
     }
 
     @Override
@@ -48,6 +62,23 @@ public class ConsoleUI implements UI {
             System.out.println("Player " + winner.getUserName() + " wins!");
         } else {
             System.out.println("It's a draw!");
+        }
+    }
+
+    @Override
+    public boolean askForOpponentType() {
+        System.out.println("Do you want to play against another player or against the computer? (Enter 'player' or 'cpu')");
+        String opponent = scanner.nextLine().trim().toLowerCase();
+        return opponent.equals("cpu");
+    }
+
+    @Override
+    public void displayFieldNumbers() {
+        for (int i = 1; i <= 9; i++) {
+            System.out.print(" | " + i);
+            if (i == 3 || i == 6 || i == 9) {
+                System.out.println(" |");
+            }
         }
     }
 }

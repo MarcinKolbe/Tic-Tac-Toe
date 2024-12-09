@@ -35,30 +35,21 @@ public class GameBoard {
         return 0; // No winner
     }
 
-    public void printBoard() {
-        for (int i = 0; i < 9; i++) {
-            System.out.print(" | ");
-            if (board.get(i) == 1) {
-                System.out.print("O");
-            } else if (board.get(i) == 2) {
-                System.out.print("X");
-            } else {
-                System.out.print(" ");
-            }
-            if (i == 2 || i == 5 || i == 8) {
-                System.out.println(" |");
-            }
-        }
-    }
     public boolean isCellAvailable(int position) {
         return board.get(position - 1) == 0;
     }
-    public void fieldNumbers() {
-        for (int i = 1; i <= 9; i++) {
-            System.out.print(" | " + i);
-            if (i == 3 || i == 6 || i == 9) {
-                System.out.println(" |");
+
+    public List<Integer> getAvailablePositions() {
+        List<Integer> availablePositions = new ArrayList<>();
+        for (int i = 0; i < board.size(); i++) {
+            if (board.get(i) == 0) {
+                availablePositions.add(i + 1);  // Dodaje pozycję numerowana od 1
             }
         }
+        return availablePositions;
+    }
+
+    public List<Integer> getBoard() {
+        return board;
     }
 }

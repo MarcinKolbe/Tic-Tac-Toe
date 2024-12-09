@@ -6,4 +6,6 @@ public interface UI {
     void displayBoard(GameBoard board);
     void displayMessage(String message);
     void endGameMessage(User winner);
+    boolean askForOpponentType();
+    void displayFieldNumbers();
 }
