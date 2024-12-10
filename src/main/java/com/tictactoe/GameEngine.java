@@ -31,7 +31,7 @@ public class GameEngine {
 
     private void playTurn(User player) {
         ui.displayMessage("It's " + player.getUserName() + "'s turn!");
-        int position = ui.getSymbolFromUser();
+        int position = ui.getPositionFromUser();
         if (gameBoard.isCellAvailable(position)) {
             gameBoard.addSymbol(position, player.getPlayerNumber());
             ui.displayBoard(gameBoard);

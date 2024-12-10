@@ -2,7 +2,7 @@ package com.tictactoe;
 
 public interface UI {
     User getUserInput(int playerNumber);
-    int getSymbolFromUser();
+    int getPositionFromUser();
     void displayBoard(GameBoard board);
     void displayMessage(String message);
     void endGameMessage(User winner);

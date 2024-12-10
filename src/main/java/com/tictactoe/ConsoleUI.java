@@ -14,7 +14,7 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public int getSymbolFromUser() {
+    public int getPositionFromUser() {
         int position = -1;
         boolean validInput = false;
         while (!validInput) {
