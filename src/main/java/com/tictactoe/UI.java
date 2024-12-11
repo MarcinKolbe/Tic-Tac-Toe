@@ -8,4 +8,5 @@ public interface UI {
     void endGameMessage(User winner);
     boolean askForOpponentType();
     void displayFieldNumbers();
+    int getDifficultyLevel();
 }

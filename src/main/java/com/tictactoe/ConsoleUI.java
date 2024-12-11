@@ -81,4 +81,25 @@ public class ConsoleUI implements UI {
             }
         }
     }
+
+    @Override
+    public int getDifficultyLevel() {
+        int level = -1;
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.println("Select difficulty level (number 1-3) for CPU: 1 for Easy, 2 for Medium, 3 for Hard");
+            try {
+                level = scanner.nextInt();
+                scanner.nextLine();
+                if (level < 1 || level > 3) {
+                    System.out.println("Invalid input! Please enter a number between 1 and 3.");
+                } else {
+                    validInput = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid number.");
+            }
+        }
+        return level;
+    }
 }

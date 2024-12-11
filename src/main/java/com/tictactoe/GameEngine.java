@@ -7,12 +7,14 @@ public class GameEngine {
     private boolean end = false;
     private UI ui;
     private boolean isPlayer2AI;
+    private int level;
 
-    public GameEngine(User player1, User player2, UI ui, boolean isPlayer2AI) {
+    public GameEngine(User player1, User player2, UI ui, boolean isPlayer2AI, int level) {
         this.player1 = player1;
         this.player2 = player2;
         this.ui = ui;
         this.isPlayer2AI = isPlayer2AI;
+        this.level = level;
     }
 
     public void startGame() {
@@ -56,7 +58,7 @@ public class GameEngine {
     }
 
     private void playAITurn() {
-        int position = AI.getBestMove(gameBoard);
+        int position = AI.getBestMove(gameBoard, level);
         ui.displayMessage("Computer chooses position " + position);
         gameBoard.addSymbol(position, 2);
         ui.displayBoard(gameBoard);
