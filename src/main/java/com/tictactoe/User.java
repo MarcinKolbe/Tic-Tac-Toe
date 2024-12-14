@@ -1,7 +1,5 @@
 package com.tictactoe;
 
-import java.util.Scanner;
-
 public class User {
     private String userName;
     private int playerNumber; // 1 for Player 1, 2 for Player 2

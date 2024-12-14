@@ -5,10 +5,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameBoard {
-    private List<Integer> board = new ArrayList<>(Collections.nCopies(9, 0));
+    private List<Integer> board;
+    private int boardSize;
 
+    public GameBoard(int boardSize) {
+        this.boardSize = boardSize;
+        this.board = new ArrayList<>(Collections.nCopies(boardSize * boardSize, 0));
+    }
     public void resetBoard() {
         Collections.fill(board, 0);
+    }
+
+    public int getBoardSize() {
+        return boardSize;
     }
 
     public void addSymbol(int position, int playerNumber) {
@@ -20,19 +29,63 @@ public class GameBoard {
     }
 
     public int checkWinner() {
-        int[][] winPatterns = {
-                {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, // rows
-                {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, // columns
-                {0, 4, 8}, {2, 4, 6} // diagonals
-        };
+        // Liczba symboli w linii potrzebna do wygranej (3 dla 3x3, 5 dla 10x10)
+        int symbolsToWin = (boardSize == 3) ? 3 : 5;
 
-        for (int[] pattern : winPatterns) {
-            int first = board.get(pattern[0]);
-            if (first != 0 && first == board.get(pattern[1]) && first == board.get(pattern[2])) {
-                return first; // 1 or 2 (player number)
+        // Sprawdzamy wygrane w poziomie, pionie i przekątnych
+        // Poziomo
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col <= boardSize - symbolsToWin; col++) {
+                int first = board.get(row * boardSize + col);
+                if (first != 0 && checkLine(row, col, 0, 1, symbolsToWin, first)) {
+                    return first;  // Zwracamy numer gracza
+                }
             }
         }
-        return 0; // No winner
+
+        // Pionowo
+        for (int col = 0; col < boardSize; col++) {
+            for (int row = 0; row <= boardSize - symbolsToWin; row++) {
+                int first = board.get(row * boardSize + col);
+                if (first != 0 && checkLine(row, col, 1, 0, symbolsToWin, first)) {
+                    return first;  // Zwracamy numer gracza
+                }
+            }
+        }
+
+        // Przekątne (lewo-prawo)
+        for (int row = 0; row <= boardSize - symbolsToWin; row++) {
+            for (int col = 0; col <= boardSize - symbolsToWin; col++) {
+                int first = board.get(row * boardSize + col);
+                if (first != 0 && checkLine(row, col, 1, 1, symbolsToWin, first)) {
+                    return first;  // Zwracamy numer gracza
+                }
+            }
+        }
+
+        // Przekątne (prawo-lewo)
+        for (int row = 0; row <= boardSize - symbolsToWin; row++) {
+            for (int col = symbolsToWin - 1; col < boardSize; col++) {
+                int first = board.get(row * boardSize + col);
+                if (first != 0 && checkLine(row, col, 1, -1, symbolsToWin, first)) {
+                    return first;  // Zwracamy numer gracza
+                }
+            }
+        }
+
+        return 0;  // Brak zwycięzcy
+    }
+
+    // Metoda sprawdzająca linię dla zadanej długości
+    private boolean checkLine(int row, int col, int rowDir, int colDir, int length, int player) {
+        for (int i = 0; i < length; i++) {
+            int r = row + i * rowDir;
+            int c = col + i * colDir;
+            if (board.get(r * boardSize + c) != player) {
+                return false;  // Jeśli na jakiejkolwiek pozycji nie ma odpowiedniego symbolu, zwrócimy fałsz
+            }
+        }
+        return true;  // Jeśli wszystkie symbole w linii są równe, zwrócimy prawdę
     }
 
     public boolean isCellAvailable(int position) {

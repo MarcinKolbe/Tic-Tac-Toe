@@ -2,8 +2,6 @@ package com.tictactoe;
 
 import org.junit.jupiter.api.*;
 
-import java.io.ByteArrayInputStream;
-
 @DisplayName("Tic Tac Toe Test Suite")
 public class TicTacToeApplicationTests {
     private static int testCounter = 0;
@@ -24,7 +22,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn1stRow() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(1,1);
         gameBoard.addSymbol(2,1);
@@ -37,7 +35,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn2ndRow() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(4,1);
         gameBoard.addSymbol(5,1);
@@ -50,7 +48,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn3rdRow() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(7,1);
         gameBoard.addSymbol(8,1);
@@ -63,7 +61,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn1stColumn() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(1,1);
         gameBoard.addSymbol(4,1);
@@ -76,7 +74,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn2ndColumn() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(2,1);
         gameBoard.addSymbol(5,1);
@@ -89,7 +87,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn3rdColumn() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(3,1);
         gameBoard.addSymbol(6,1);
@@ -102,7 +100,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn1stDiagonal() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(1,1);
         gameBoard.addSymbol(5,1);
@@ -115,7 +113,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player1WinsIn2ndDiagonal() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(3,1);
         gameBoard.addSymbol(5,1);
@@ -128,7 +126,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn1stRow() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(1,2);
         gameBoard.addSymbol(2,2);
@@ -141,7 +139,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn2ndRow() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(4,2);
         gameBoard.addSymbol(5,2);
@@ -154,7 +152,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn3rdRow() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(7,2);
         gameBoard.addSymbol(8,2);
@@ -167,7 +165,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn1stColumn() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(1,2);
         gameBoard.addSymbol(4,2);
@@ -180,7 +178,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn2ndColumn() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(2,2);
         gameBoard.addSymbol(5,2);
@@ -193,7 +191,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn3rdColumn() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(3,2);
         gameBoard.addSymbol(6,2);
@@ -206,7 +204,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn1stDiagonal() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(1,2);
         gameBoard.addSymbol(5,2);
@@ -219,7 +217,7 @@ public class TicTacToeApplicationTests {
     @Test
     void player2WinsIn2ndDiagonal() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(3,2);
         gameBoard.addSymbol(5,2);
@@ -232,7 +230,7 @@ public class TicTacToeApplicationTests {
     @Test
     void ItIsADraw() {
         //Given
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = new GameBoard(3);
         gameBoard.resetBoard();
         gameBoard.addSymbol(1,1);
         gameBoard.addSymbol(2,2);
