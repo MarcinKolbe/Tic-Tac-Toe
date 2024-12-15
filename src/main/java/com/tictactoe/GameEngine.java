@@ -9,6 +9,7 @@ public class GameEngine {
     private boolean isPlayer2AI;
     private int level;
     private int boardSize;
+    private Ranking ranking;
 
     public GameEngine(User player1, User player2, UI ui, boolean isPlayer2AI, int level, int boardSize) {
         this.player1 = player1;
@@ -18,13 +19,16 @@ public class GameEngine {
         this.level = level;
         this.boardSize = boardSize;
         this.gameBoard = new GameBoard(boardSize);
+        this.ranking = new Ranking();
     }
 
     public void startGame() {
-        gameBoard.resetBoard();
+        //gameBoard.resetBoard();
         ui.displayMessage("Game starting! " + player1.getUserName() + " vs " + (isPlayer2AI ? "CPU" : player2.getUserName()) + ((boardSize == 3)?" - 3 symbols next to each other win": " - 5 symbols next to each other win"));
+        ui.displayMessage("After each round the game saves automatically.");
+        ui.displayBoard(gameBoard);
+        ui.displayFieldNumbers(boardSize);
         while (!end) {
-            ui.displayFieldNumbers(boardSize);
             playTurn(player1);
             if (checkGameEnd()) break;
             if (isPlayer2AI) {
@@ -32,6 +36,8 @@ public class GameEngine {
                 if (checkGameEnd()) break;
             } else playTurn(player2);
             if (checkGameEnd()) break;
+            GameSaver.saveGame(this);
+            ui.displayMessage("Game saved");
         }
     }
 
@@ -57,7 +63,9 @@ public class GameEngine {
             } else {
                 String winnerName = (winner == 1) ? player1.getUserName() : (isPlayer2AI ? "Computer" : player2.getUserName());
                 ui.displayMessage(winnerName + " wins!");
+                ranking.addPlayerStats(winnerName, true);
             }
+            ui.displayRankingTable(ranking.getRankingList());
         }
         return end;
     }
@@ -67,5 +75,36 @@ public class GameEngine {
         ui.displayMessage("Computer chooses position " + position);
         gameBoard.addSymbol(position, 2);
         ui.displayBoard(gameBoard);
+    }
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public boolean getIsPlayer2AI() {
+        return isPlayer2AI;
+    }
+    public int getLevel() {
+        return level;
+    }
+
+    public User getPlayer1() {
+        return player1;
+    }
+
+    public User getPlayer2() {
+        return player2;
+    }
+
+    public void save() {
+        GameSaver.saveGame(this);
     }
 }

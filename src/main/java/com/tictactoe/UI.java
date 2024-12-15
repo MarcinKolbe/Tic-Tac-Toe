@@ -1,5 +1,7 @@
 package com.tictactoe;
 
+import java.util.List;
+
 public interface UI {
     User getUserInput(int playerNumber);
     int getPositionFromUser(int boardSize);
@@ -11,4 +13,6 @@ public interface UI {
     int getDifficultyLevel();
     int getBoardSize();
     void startGame();
+    void displayRankingTable(List<PlayerStats> rankingList);
+    void newGame();
 }

@@ -105,4 +105,5 @@ public class GameBoard {
     public List<Integer> getBoard() {
         return board;
     }
+
 }

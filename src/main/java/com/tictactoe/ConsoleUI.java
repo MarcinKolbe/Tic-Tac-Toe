@@ -1,5 +1,6 @@
 package com.tictactoe;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -124,6 +125,24 @@ public class ConsoleUI implements UI {
     @Override
     public void startGame() {
         System.out.println("Welcome to Tic Tac Toe!");
+        System.out.println("Do you want to load saved game? Enter 'yes' or 'no'");
+        String loadChoice = scanner.nextLine().trim().toLowerCase();
+        GameEngine gameEngine = null;
+        if (loadChoice.equals("yes")) {
+            try {
+                gameEngine = GameSaver.loadGame();
+            } catch (IOException e){
+                System.out.println("No save game found. Start a new game.");
+                newGame();
+            }
+        } else {
+            newGame();
+        }
+    }
+
+    @Override
+    public void newGame() {
+        System.out.println("Starting new game...");
         UI ui = new ConsoleUI();
         int boardSize = getBoardSize();
         boolean isPlayer2AI = askForOpponentType();
@@ -140,5 +159,20 @@ public class ConsoleUI implements UI {
 
         GameEngine gameEngine = new GameEngine(player1, player2, ui, isPlayer2AI, level, boardSize);
         gameEngine.startGame();
+    }
+
+    @Override
+    public void displayRankingTable(List<PlayerStats> rankingList) {
+        // Sortowanie rankingu po liczbie wygranych gier (malejąco)
+        rankingList.sort((p1, p2) -> Integer.compare(p2.getGamesWon(), p1.getGamesWon()));
+
+        // Wyświetlanie nagłówka tabeli
+        System.out.println("\nRanking:");
+        System.out.printf("%-20s %-15s %-15s %-10s%n", "Player", "Games Played", "Games Won", "Date");
+
+        // Wyświetlanie każdego rekordu
+        for (PlayerStats stats : rankingList) {
+            System.out.printf("%-20s %-15d %-15d %-10s%n", stats.getUserName(), stats.getGamesPlayed(), stats.getGamesWon(), stats.getDate());
+        }
     }
 }

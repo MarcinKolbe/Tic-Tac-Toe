@@ -1,0 +1,7 @@
+Board Size: 3
+Current Player: Player 1
+Is AI Opponent: true
+Level: 1
+Player 1: Gabrysia
+Player 2: AI
+Board: 1 1 0 0 0 0 2 2 0 
